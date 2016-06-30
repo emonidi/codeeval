@@ -10,7 +10,5 @@ fs.readFileSync(process.argv[2]).toString().split('\n').forEach(function (line) 
  	   if(split[index-1]){
  	   	console.log(split[index-1]);
  	   }
-
- 	   	
     }
 });
