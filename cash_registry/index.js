@@ -34,19 +34,15 @@ fs.readFileSync(process.argv[2]).toString().split('\n').forEach(function (line) 
         }else if(price === money){
             change.push('ZERO');
         }else{
-            while(price <= money){
+            while(price != money){
                 Object.keys(currency)
                     .reverse()
                     .forEach(function(item, index){
                         if(money  >= price+currency[item] ){
                             change.push(item);
-                            price += currency[item];
-
+                            price = Math.floor(adjustPrice(price, currency[item]));
                         }
                     });
-                if (price.toFixed(2) === money.toFixed(2)){
-                    break;
-                }
             }
         }
 
@@ -55,3 +51,11 @@ fs.readFileSync(process.argv[2]).toString().split('\n').forEach(function (line) 
 
     }
 });
+
+function adjustPrice(price, currencyItem){
+    price += currencyItem;
+    price = price.toFixed(20).slice(0,-18)
+    price =  parseFloat(price);
+
+    return price;
+}
